@@ -1,0 +1,44 @@
+{
+  "name": "bottleneck",
+  "version": "1.0.0",
+  "description": "Check your PC against game requirements.",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "npm run build && node --test tests/*.test.cjs",
+    "build": "tsc",
+    "start": "npm run build && electron .",
+    "package": "npm run build && electron-packager . Bottleneck --platform=win32 --arch=x64 --out=release --overwrite --ignore=^/release --ignore=^/tests --ignore=^/src",
+    "test:smoke": "npm run build && node tests/smoke.cjs",
+    "release": "npm run build && electron-builder --win portable --x64 --publish never"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "devDependencies": {
+    "@electron/packager": "^20.3.0",
+    "@types/node": "^26.6.6",
+    "electron": "^45.1.0",
+    "electron-builder": "^26.18.0",
+    "playwright": "^1.64.1",
+    "typescript": "^7.0.2"
+  },
+  "build": {
+    "appId": "dev.bottleneck.app",
+    "productName": "Bottleneck",
+    "directories": {
+      "output": "release-v1-ready"
+    },
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false
+    },
+    "artifactName": "Bottleneck-v1.exe",
+    "files": [
+      "dist/**/*",
+      "ui/**/*",
+      "package.json"
+    ],
+    "compression": "store"
+  }
+}
